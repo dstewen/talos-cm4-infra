@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: meshcentral
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/network/meshcentral/app
+  targetNamespace: network
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app meshcentral
+  prune: true
+  wait: false
+  interval: 10m
+  dependsOn:
+    - name: external-secrets-stores
