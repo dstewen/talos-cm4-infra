@@ -37,32 +37,13 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.200.15.253"
-  - hostname: "blade2"
-    ipAddress: "10.200.15.32"
-    installDisk: "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_220628800731"
-    machineSpec:
-      secureboot: false
-    talosImageURL: factory.talos.dev/installer/de1619e16531ddff67ccb4ce636a5e3ba5197eb4fc0e8421f095ec50ce9d26a6
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "e4:5f:01:ec:16:54"
-        dhcp: false
-        addresses:
-          - "10.200.15.32/24"
-        routes:
-          - gateway: "10.200.15.1"
-            network: 0.0.0.0/0
-        mtu: 1500
-        vip:
-          ip: "10.200.15.253"
   - hostname: "blade3"
     ipAddress: "10.200.15.33"
     installDisk: "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22061X805700"
     machineSpec:
       secureboot: false
     talosImageURL: factory.talos.dev/installer/de1619e16531ddff67ccb4ce636a5e3ba5197eb4fc0e8421f095ec50ce9d26a6
-    controlPlane: true
+    controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: "e4:5f:01:ec:16:a2"
@@ -73,8 +54,6 @@ nodes:
           - gateway: "10.200.15.1"
             network: 0.0.0.0/0
         mtu: 1500
-        vip:
-          ip: "10.200.15.253"
 
 # Global patches
 patches:
