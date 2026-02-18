@@ -37,6 +37,13 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.200.15.253"
+    extensionServices:
+      - name: nut-client
+        configFiles:
+          - content: |-
+              MONITOR ups@192.168.10.23 1 upsmon_local mypassword secondary
+              SHUTDOWNCMD "/sbin/poweroff"
+            mountPath: /usr/local/etc/nut/upsmon.conf
   - hostname: "blade3"
     ipAddress: "10.200.15.33"
     installDisk: "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22061X805700"
@@ -54,6 +61,13 @@ nodes:
           - gateway: "10.200.15.1"
             network: 0.0.0.0/0
         mtu: 1500
+    extensionServices:
+      - name: nut-client
+        configFiles:
+          - content: |-
+              MONITOR ups@192.168.10.23 1 upsmon_local mypassword secondary
+              SHUTDOWNCMD "/sbin/poweroff"
+            mountPath: /usr/local/etc/nut/upsmon.conf
 
 # Global patches
 patches:
