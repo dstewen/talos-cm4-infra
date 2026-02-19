@@ -3,17 +3,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: meshcentral
+  name: &app meshcentral
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: app-template
-      version: 3.7.3
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: meshcentral
   values:
     controllers:
       meshcentral:
@@ -25,9 +20,9 @@ spec:
               repository: ghcr.io/ylianst/meshcentral
               tag: 1.1.56
             env:
-              TZ: "${TIMEZONE}"
+              TZ: "Australia/Melbourne"
               NODE_ENV: production
-              HOSTNAME: &host mesh.${SECRET_DOMAIN}
+              HOSTNAME: &host mesh.davidstewen.com
             resources:
               requests:
                 cpu: 100m
@@ -38,21 +33,25 @@ spec:
         controller: meshcentral
         ports:
           http:
-            port: 8080
-    ingress:
+            port: &port 8080
+
+    route:
       app:
-        className: internal
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        hosts:
-          - host: *host
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts: [*host]
+          hajimari.io/enable: "true"
+          hajimari.io/appName: "Netboot.xyz"
+          hajimari.io/info: "Network boot system"
+          hajimari.io/icon: "refresh-auto"
+        hostnames: ["mesh.davidstewen.com"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+
     persistence:
       config:
         type: configMap
