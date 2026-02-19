@@ -26,14 +26,19 @@ nodes:
     talosImageURL: factory.talos.dev/installer/de1619e16531ddff67ccb4ce636a5e3ba5197eb4fc0e8421f095ec50ce9d26a6
     controlPlane: true
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "e4:5f:01:50:27:2d"
+        #bond0
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: "e4:5f:01:50:27:2d"
         dhcp: false
         addresses:
           - "10.200.15.31/24"
         routes:
-          - gateway: "10.200.15.1"
-            network: 0.0.0.0/0
+          - network: "0.0.0.0/0"
+            gateway: "10.200.15.1"
+            metric: 1
         mtu: 1500
         vip:
           ip: "10.200.15.253"
@@ -45,14 +50,19 @@ nodes:
     talosImageURL: factory.talos.dev/installer/de1619e16531ddff67ccb4ce636a5e3ba5197eb4fc0e8421f095ec50ce9d26a6
     controlPlane: false
     networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: "e4:5f:01:ec:16:a2"
+        #bond0
+      - interface: bond0
+        bond:
+          mode: active-backup
+          deviceSelectors:
+            - hardwareAddr: "e4:5f:01:ec:16:a2"
         dhcp: false
         addresses:
           - "10.200.15.33/24"
         routes:
-          - gateway: "10.200.15.1"
-            network: 0.0.0.0/0
+          - network: "0.0.0.0/0"
+            gateway: "10.200.15.1"
+            metric: 1
         mtu: 1500
 
 # Global patches
