@@ -18,7 +18,7 @@ spec:
       namespace: openebs-system
   values:
   #  runnerScaleSetName: arc-runner-set-home-ops
-    githubConfigUrl: https://github.com/dstewen/talos-homecluster
+    githubConfigUrl: https://github.com/dstewen/talos-cm4-infra
     githubConfigSecret: pre-defined-secret
     minRunners: 1
     maxRunners: 3
