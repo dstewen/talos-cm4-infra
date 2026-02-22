@@ -42,6 +42,33 @@ nodes:
         mtu: 1500
         vip:
           ip: "10.200.15.253"
+        vlans:
+          # HomeLABServers VLAN
+          - vlanId: 15
+            dhcp: false
+            addresses:
+              - 10.200.15.38/24
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.200.15.1
+                metric: 1
+          # K3S_Services_VLAN
+          - vlanId: 20
+            dhcp: false
+            mtu: 1500
+          # Provisioning VLAN
+          - vlanId: 30
+            dhcp: false
+            mtu: 1500
+          # IOT VLAN
+          - vlanId: 100
+            dhcp: false
+            mtu: 1500
+          # GuestWifi VLAN
+          - vlanId: 110
+            dhcp: false
+            mtu: 1500
   - hostname: "blade3"
     ipAddress: "10.200.15.33"
     installDisk: "/dev/disk/by-id/nvme-WD_Blue_SN570_500GB_22061X805700"
@@ -64,7 +91,33 @@ nodes:
             gateway: "10.200.15.1"
             metric: 1
         mtu: 1500
-
+        vlans:
+          # HomeLABServers VLAN
+          - vlanId: 15
+            dhcp: false
+            addresses:
+              - 10.200.15.38/24
+            mtu: 1500
+            routes:
+              - network: 0.0.0.0/0
+                gateway: 10.200.15.1
+                metric: 1
+          # K3S_Services_VLAN
+          - vlanId: 20
+            dhcp: false
+            mtu: 1500
+          # Provisioning VLAN
+          - vlanId: 30
+            dhcp: false
+            mtu: 1500
+          # IOT VLAN
+          - vlanId: 100
+            dhcp: false
+            mtu: 1500
+          # GuestWifi VLAN
+          - vlanId: 110
+            dhcp: false
+            mtu: 1500
 # Global patches
 patches:
   - "@./patches/global/machine-files.yaml"
